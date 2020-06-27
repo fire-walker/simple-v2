@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, session, abort
+from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_required, login_user, logout_user, UserMixin, current_user
@@ -7,8 +7,7 @@ from post import post_blueprint
 import itertools
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import StringField, PasswordField, SubmitField
 
 from passlib.totp import TOTP
 import passlib.exc as passlib_errors
@@ -24,6 +23,7 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -33,7 +33,7 @@ class User(UserMixin, db.Model):
     totp = db.Column(db.String, nullable=False, default=False)
     totp_counter = db.Column(db.Integer, nullable=False, default=False)
     
-    def help():
+    def help(self):
         print("""
 # create new user
 self.new_user() 
@@ -72,7 +72,7 @@ self.auth_verify('int_token')
             
             token = input('Enter token to verify: ')
             verification = self.auth_verify(token)
-            if verification == True:
+            if verification:
                 print('Successfully created user')
                 return self
             else:
@@ -112,7 +112,7 @@ self.auth_verify('int_token')
     def auth_verify(self, token):
         try:
             int(token)
-        except:
+        except ValueError:
             return False
         else:
             token = int(token)
@@ -140,6 +140,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password')
     # remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign In') 
+      
       
 class TwofaForm(FlaskForm):
     token = StringField('Token')
@@ -242,7 +243,7 @@ def page():
         page_num = len(post_data.keys()) // per_page
         
     if cur_page > page_num + 1 or cur_page <= 0:
-            return render_template('404.html', page_title='Page Not Found')
+        return render_template('404.html', page_title='Page Not Found')
 
 
     page_start = (per_page * cur_page) - per_page

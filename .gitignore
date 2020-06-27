@@ -4,3 +4,4 @@ package-lock.json
 totp_sec
 users.db
 package.json
+.vscode
