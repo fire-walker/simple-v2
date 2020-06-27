@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class='back-setting' id="archive-body"> 
+    <header>
+        <h1><a href="/">Simple</a></h1> 
+    </header>
+
+    <content>
+        <table>
+            <thead>
+                <tr>
+                    <th><h1>Post</h1></th>
+                    <th><h1>Written on</h1></th>
+                    <th><h1>Visit</h1></th>
+                </tr>
+            </thead>
+                {% for post_key, post_value in posts.items() %}
+                    <tr>
+                        <td>{{ post_value.header }}</td>
+                        <td>{{ post_value.date[0] }}</td>
+                        <td><a href="/post?id={{ post_key }}">here...</a></td>
+                    </tr>
+                {% endfor%}
+            <tbody>
+
+            </tbody>
+        </table>
+    </content>
+</div>
+{% endblock body %}

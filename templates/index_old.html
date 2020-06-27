@@ -1,0 +1,35 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="back-setting" id="index-body">
+    <header>
+        <h1>
+            <button class="theme-switch" id="theme-switch">
+                <span>Simple</span>
+            </button>
+        </h1>
+        <p>Just a simple site (Ptsss. click above)</p>
+        <ul id="index-body-header-nav">
+            <li><a href="/tags">tags</a></li>
+            <li><a href="/archive">archive</a></li>
+            <li><a href="/editor">editor</a></li>
+        </ul>
+    </header>
+
+    <content>
+        {% for post_key, post_value in posts.items() %}
+        <article id="{{ post_key }}">
+            <h1>{{ post_value.header }}</h1>
+            <h2>{{ post_value.date[0] }}</h2>
+            <p>{{ post_value.content[0] }}</p>
+            <div class="tags">
+                {% for tag in post_value.tags %}
+                <a>{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </article>
+        {% endfor %}
+    </content>
+</div>
+<footer>
+    <hr data-symbol="the end" />
+</footer>
+{% endblock body %}

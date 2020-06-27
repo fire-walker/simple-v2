@@ -1,0 +1,36 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class='back-setting' id="article-body">
+    <header>
+        <h1><a href="/">Simple</a></h1>
+    </header>
+
+    <content>
+        {% for post_key, post_value in post.items() %}
+            <article class="{{ post_key }}">
+                <h1>{{ post_value.header }}</h1>
+                <div>
+                    <h2>
+                        Written on {{ post_value.date[0] }}
+                        {% if not post_value.date[1] == '' %}
+                           | Edited on {{post_value.date[1]}}
+                        {% endif %}
+                    </h2>
+                    <ul>
+                        {% for tag in post_value.tags %}
+                            <li><a href="#"><span>#</span>{{ tag }}</li></a>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% for para in post_value.content %}
+                    {{ para }}
+                {% endfor %}
+            </article>
+        {% endfor %}
+    </content>
+</div>
+<footer>
+    <hr data-symbol="the end">
+</footer>
+{% endblock body %}

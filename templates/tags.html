@@ -1,0 +1,53 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="back-setting" id="tag-body">
+    <header>
+        <h1 id="tag-body-header-h1"><a href="/">Simple</a></h1>
+        <ul id="tag-body-header-nav">
+            {% for tag in tags %} {% if tag == tags[0] %}
+            <li class="{{ tag }} btn active"><a>{{ tag }}</a></li>
+            {% else %}
+            <li class="{{ tag }} btn"><a>{{ tag }}</a></li>
+            {% endif %} {% endfor %}
+        </ul>
+    </header>
+
+    <content id="tag-content">
+        {% for tag in tags %} {% if tag == tags[0] %}
+        <ul class="flex cards {{ tag ~ '-content' }} active">
+            {% for post_key, post_value in posts.items() %} {% if tag in
+            post_value.tags %}
+            <li id="{{post_key}}">
+                <h1>{{ post_value.header }}</h1>
+                <h2>{{ post_value.date[0] }}</h2>
+                <p>{{ post_value.content[0] }}</p>
+                <div class="tags">
+                    {% for tag in post_value.tags %}
+                    <a>{{ tag }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            {% endif %} {% endfor %}
+        </ul>
+        {% else %}
+        <ul class="flex cards {{ tag ~ '-content' }}">
+            {% for post_key, post_value in posts.items() %} {% if tag in
+            post_value.tags %}
+            <li
+                id="
+							{{post_key}}"
+            >
+                <h1>{{ post_value.header }}</h1>
+                <h2>{{ post_value.date[0] }}</h2>
+                <p>{{ post_value.content[0] }}</p>
+                <div class="tags">
+                    {% for tag in post_value.tags %}
+                    <a>{{ tag }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            {% endif %} {% endfor %}
+        </ul>
+        {% endif %} {% endfor %}
+    </content>
+</div>
+{% endblock body %}
