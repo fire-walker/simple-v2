@@ -35,24 +35,24 @@ class User(UserMixin, db.Model):
     
     def help(self):
         print("""
-# create new user
-self.new_user() 
+    # create new user
+    self.new_user() 
 
-# set new password
-self.set_pw('password')   
+    # set new password
+    self.set_pw('password')   
 
-# check a user's password
-self.check_pw('password')
-  
-# generate totp creds
-self.gen_totp()
+    # check a user's password
+    self.check_pw('password')
+    
+    # generate totp creds
+    self.gen_totp()
 
-# generate user's totp qr
-self.get_totp_qr()
+    # generate user's totp qr
+    self.get_totp_qr()
 
-# check user's totp creds   
-self.auth_verify('int_token')
-""")
+    # check user's totp creds   
+    self.auth_verify('int_token')
+    """)
     
     def new_user(self):
         self.username = input('Enter username: ')
@@ -134,6 +134,19 @@ self.auth_verify('int_token')
         return f'({self.id}, {self.username})'
 
 
+# class Posts(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(80), unique=True, nullable=False)
+#     password = db.Column(db.String, nullable=False)
+    
+#     totp_enabled = db.Column(db.Boolean, nullable=False, default=False)
+#     totp = db.Column(db.String, nullable=False, default=False)
+#     totp_counter = db.Column(db.Integer, nullable=False, default=False)
+        
+#     def __repr__(self):
+#         return f'({self.id}, {self.username})'  
+
+    
     
 class LoginForm(FlaskForm):
     username = StringField('Username')
